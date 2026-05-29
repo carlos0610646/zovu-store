@@ -6,7 +6,6 @@ const mockProducts = [
   { id: 2, name: 'Minimal Sports Top', price: 35.00, category: 'Women', img: 'https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?auto=format&fit=crop&w=500&q=80' },
   { id: 3, name: 'Beige Cargo Pants', price: 85.00, category: 'Men', img: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80' },
   { id: 4, name: 'Zovu Minimalist Cap', price: 25.00, category: 'Accessories', img: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=80' },
-  { id: 5, name: 'Urban Pleated Skirt', price: 65.00, category: 'Women', img: 'https://images.unsplash.com/photo-1572804013309-82a89b4f959c?auto=format&fit=crop&w=500&q=80' },
   { id: 6, name: 'Canvas Tote Bag', price: 40.00, category: 'Accessories', img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=500&q=80' }
 ];
 
