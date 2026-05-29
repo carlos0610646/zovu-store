@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+// 1. MOVIMOS EL CATÁLOGO AQUÍ ARRIBA (Fuera del componente para que Vercel no se queje)
+const mockProducts = [
+  { id: 1, name: 'Black Oversized T-Shirt', price: 45.00, category: 'Men', img: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80' },
+  { id: 2, name: 'Minimal Sports Top', price: 35.00, category: 'Women', img: 'https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?auto=format&fit=crop&w=500&q=80' },
+  { id: 3, name: 'Beige Cargo Pants', price: 85.00, category: 'Men', img: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80' },
+  { id: 4, name: 'Zovu Minimalist Cap', price: 25.00, category: 'Accessories', img: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=80' },
+  { id: 5, name: 'Urban Pleated Skirt', price: 65.00, category: 'Women', img: 'https://images.unsplash.com/photo-1572804013309-82a89b4f959c?auto=format&fit=crop&w=500&q=80' },
+  { id: 6, name: 'Canvas Tote Bag', price: 40.00, category: 'Accessories', img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=500&q=80' }
+];
+
 const ZovuStore = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -7,31 +17,21 @@ const ZovuStore = () => {
   const [activeCategory, setActiveCategory] = useState('New Arrivals');
   const [connectionStatus, setConnectionStatus] = useState('Conectando a Jakarta EE...');
 
-  // 1. Catálogo local (Plan B por si el servidor Java está apagado en la exposición)
-  const mockProducts = [
-    { id: 1, name: 'Black Oversized T-Shirt', price: 45.00, category: 'Men', img: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80' },
-    { id: 2, name: 'Minimal Sports Top', price: 35.00, category: 'Women', img: 'https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?auto=format&fit=crop&w=500&q=80' },
-    { id: 3, name: 'Beige Cargo Pants', price: 85.00, category: 'Men', img: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80' },
-    { id: 4, name: 'Zovu Minimalist Cap', price: 25.00, category: 'Accessories', img: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=80' },
-    { id: 6, name: 'Canvas Tote Bag', price: 40.00, category: 'Accessories', img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=500&q=80' }
-  ];
-
-  // 2. PUERTO DE SALIDA A JAKARTA EE (Aquí es donde evaluará el profesor)
+  // 2. PUERTO DE SALIDA A JAKARTA EE
   useEffect(() => {
     const fetchFromJakarta = async () => {
       try {
-        // Petición HTTP GET al endpoint JAX-RS del backend en Java
         const response = await fetch('http://localhost:8080/zovu-backend/api/productos');
         
         if (!response.ok) throw new Error('Servidor no disponible');
         
         const data = await response.json();
-        setProducts(data); // Carga los datos reales de la BD
+        setProducts(data); 
         setConnectionStatus('✅ Conectado al API de Jakarta EE (JAX-RS)');
         
       } catch (error) {
         console.warn('Backend de Jakarta no detectado. Usando datos locales simulados.');
-        setProducts(mockProducts); // Carga el Plan B
+        setProducts(mockProducts); // Ahora esto funciona sin darle problemas a Vercel
         setConnectionStatus('⚠️ Modo Simulación (Esperando servidor Jakarta JAX-RS)');
       }
     };
@@ -157,7 +157,7 @@ const ZovuStore = () => {
         )}
       </main>
 
-      {/* INDICADOR DE PUERTOS DE SALIDA (Para el profesor) */}
+      {/* INDICADOR DE PUERTOS DE SALIDA */}
       <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-t border-slate-800 flex justify-between items-center font-mono">
         <span>Arquitectura Frontend: React SPA</span>
         <span className={connectionStatus.includes('✅') ? 'text-emerald-400' : 'text-amber-400'}>
